@@ -10,17 +10,23 @@ public class Day03 {
         String commandString = Files.readString(filePath);
         
         boolean stringEnd = false;
-        int mulCount = 0;
+        int total = 0;
 
-        while (stringEnd = false) {
+        while (!stringEnd) {
             int nextMul = commandString.indexOf("mul(");
             if (nextMul > -1) {
-                commandString = commandString.substring(nextMul);
-                mulCount++;
+                commandString = commandString.substring(nextMul + 4);
+
+
+                // Check the remaining string is of the format [any number],[any number])[anything]
+                if (commandString.substring(0,commandString.indexOf(")")).matches("^\\d+,\\d+")) {
+                    String[] factors = commandString.substring(0, commandString.indexOf(')')).split(",");
+                    total += Integer.parseInt(factors[0]) * Integer.parseInt(factors[1]);
+                }
             } else {
                 stringEnd = true;
             }
         }
-        System.out.println(mulCount);
+        System.out.println(total);
     }
 }
