@@ -126,8 +126,36 @@ public class Day04 {
         int xCount = 0;
         for (int i = 1; i < grid.size() - 1; i++) {
             for (int j = 1; j < grid.get(i).size() - 1; j++) {
-
+                if (grid.get(i).get(j).equals('A')) {
+                    if (masCheck(
+                        grid.get(i-1).get(j-1), 
+                        grid.get(i-1).get(j+1), 
+                        grid.get(i+1).get(j-1), 
+                        grid.get(i+1).get(j+1)
+                    )) {
+                        xCount++;
+                    }
+                }
             }
+        }
+        System.out.println(xCount);
+    }
+
+    private static boolean masCheck(Character topLeft, Character topRight, Character bottomLeft, Character bottomRight) {
+        if (topLeft.equals('M')) {
+            if (bottomRight.equals('S')) {
+                return ((topRight.equals('M') && bottomLeft.equals('S')) || (topRight.equals('S') && bottomLeft.equals('M')));
+            } else {
+                return false;
+            }
+        } else if (topLeft.equals('S')) {
+            if (bottomRight.equals('M')) {
+                return ((topRight.equals('M') && bottomLeft.equals('S')) || (topRight.equals('S') && bottomLeft.equals('M')));
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
